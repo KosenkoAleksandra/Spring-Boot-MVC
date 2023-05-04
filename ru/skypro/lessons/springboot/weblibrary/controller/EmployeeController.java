@@ -20,6 +20,19 @@ public class EmployeeController {
     public List<Employee> showCounter() {
         return employeeService.getAllEmployees();
     }
+    @GetMapping("/salary/sum")
+    public int sumSalary(){
+        return employeeService.sumSalary();
+    }
+    @GetMapping("/salary/min")
+    public Employee getEmployeeWithMinSalary() {
+       return employeeService.getEmployeeWithMinSalary();
+    }
+    @GetMapping("/salary/max")
+    public Employee getEmployeeWithMaxSalary() {
+        return employeeService.getEmployeeWithMaxSalary();
+    }
+
 
 
 
