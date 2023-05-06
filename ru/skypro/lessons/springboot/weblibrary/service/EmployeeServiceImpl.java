@@ -6,7 +6,12 @@ import ru.skypro.lessons.springboot.weblibrary.pojo.Employee;
 import ru.skypro.lessons.springboot.weblibrary.repository.EmployeeRepository;
 
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static java.lang.Math.min;
+
 @Data
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -26,37 +31,35 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
         return sum;
     }
-    public int getFirstNotNullSalaryIndex() {
-        for (Employee employee : employeeRepository.getAllEmployees()) {
-            if (employeeRepository.getAllEmployees() != null) {
-                return employee.getSalary();
-            }
-        }
-        throw new RuntimeException("Нет ни одного работника");
-    }
 
     @Override
     public Employee getEmployeeWithMinSalary() {
-        Employee employeeWithMinSalary = employeeRepository.getAllEmployees().get(getFirstNotNullSalaryIndex());
-        for (int i = getFirstNotNullSalaryIndex() + 1; i < employeeRepository.getAllEmployees().size(); i++) {
-            if (employeeRepository.getAllEmployees().get(i) != null &&
-                    employeeRepository.getAllEmployees().get(i).getSalary() < employeeWithMinSalary.getSalary()) {
-                employeeWithMinSalary = employeeRepository.getAllEmployees().get(i);
-            }
-        }
+        Employee employeeWithMinSalary = employeeRepository.getAllEmployees().stream()
+                .min(Comparator.comparingInt(Employee::getSalary))
+                .get();
         return employeeWithMinSalary;
     }
 
     @Override
     public Employee getEmployeeWithMaxSalary() {
-        Employee employeeWithMaxSalary = employeeRepository.getAllEmployees().get(getFirstNotNullSalaryIndex());
-        for (int i = getFirstNotNullSalaryIndex() + 1; i < employeeRepository.getAllEmployees().size(); i++) {
-            if (employeeRepository.getAllEmployees().get(i) != null &&
-                    employeeRepository.getAllEmployees().get(i).getSalary() > employeeWithMaxSalary.getSalary()) {
-                employeeWithMaxSalary = employeeRepository.getAllEmployees().get(i);
-            }
-        }
+        Employee employeeWithMaxSalary = employeeRepository.getAllEmployees().stream()
+                .max(Comparator.comparingInt(Employee::getSalary))
+                .get();
         return employeeWithMaxSalary;
+    }
+
+    @Override
+    public List<Employee> getAllEmployeesWithAboveAverageSalary() {
+        List<Employee> allEmployeesWithAboveAverageSalary = new ArrayList<>();
+        for (Employee employee : employeeRepository.getAllEmployees()) {
+            if (employee != null && employee.getSalary() > getAverage());
+        }
+        return allEmployeesWithAboveAverageSalary;
+    }
+
+    public int getAverage() {
+        int averageSalary = sumSalary()/employeeRepository.getAllEmployees().size();
+        return averageSalary;
     }
 
 

@@ -9,5 +9,6 @@ public interface EmployeeRepository {
      int sumSalary();
      Employee getEmployeeWithMinSalary();
      Employee getEmployeeWithMaxSalary ();
+     List<Employee> getAllEmployeesWithAboveAverageSalary();
 
 }

@@ -9,6 +9,7 @@ public interface EmployeeService {
     int sumSalary();
     Employee getEmployeeWithMinSalary();
     Employee getEmployeeWithMaxSalary();
+    List<Employee> getAllEmployeesWithAboveAverageSalary();
 
 
 
