@@ -52,7 +52,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> getAllEmployeesWithAboveAverageSalary() {
         List<Employee> allEmployeesWithAboveAverageSalary = new ArrayList<>();
         for (Employee employee : employeeRepository.getAllEmployees()) {
-            if (employee != null && employee.getSalary() > getAverage());
+            if (employee != null && employee.getSalary() > getAverage()) {
+                allEmployeesWithAboveAverageSalary.add(employee);
+            }
         }
         return allEmployeesWithAboveAverageSalary;
     }
