@@ -3,6 +3,7 @@ package ru.skypro.lessons.springboot.weblibrary.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.skypro.lessons.springboot.weblibrary.pojo.Employee;
+import ru.skypro.lessons.springboot.weblibrary.service.EmployeeServiceImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,10 +11,10 @@ import java.util.List;
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository{
     public final List<Employee> employeeList = List.of(
-            new Employee(60000, "Svetlana"),
-            new Employee(87000, "Dmitry"),
-            new Employee(67000, "Ivan"),
-            new Employee(150000, "Oleg"));
+            new Employee("Svetlana", 60000),
+            new Employee("Dmitry", 87000),
+            new Employee("Ivan", 67000),
+            new Employee("Oleg", 130000));
 
     @Override
     public List<Employee> getAllEmployees() {
@@ -22,16 +23,20 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 
     @Override
     public int sumSalary() {
-        return 0;
+        return sumSalary();
     }
 
     @Override
     public Employee getEmployeeWithMinSalary() {
-        return null;
+        return getEmployeeWithMinSalary();
     }
 
     @Override
     public Employee getEmployeeWithMaxSalary() {
-        return null;
+        return getEmployeeWithMaxSalary();
+    }
+    @Override
+    public List<Employee> getAllEmployeesWithAboveAverageSalary(){
+        return getAllEmployeesWithAboveAverageSalary();
     }
 }
