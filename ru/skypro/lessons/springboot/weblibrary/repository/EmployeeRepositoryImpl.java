@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository{
     public final List<Employee> employeeList = List.of(
-            new Employee("Svetlana", 60000),
-            new Employee("Dmitry", 87000),
-            new Employee("Ivan", 67000),
-            new Employee("Oleg", 130000));
+            new Employee(1,"Svetlana", 60000),
+            new Employee(2, "Dmitry", 87000),
+            new Employee(3, "Ivan", 67000),
+            new Employee(4, "Oleg", 130000));
 
     @Override
     public List<Employee> getAllEmployees() {
@@ -38,5 +38,25 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
     @Override
     public List<Employee> getAllEmployeesWithAboveAverageSalary(){
         return getAllEmployeesWithAboveAverageSalary();
+    }
+    @Override
+    public void addEmployee(Employee employee){
+        addEmployee(employee);
+    }
+    @Override
+    public void editEmployee(Employee employee) {
+        editEmployee(employee);
+    }
+    @Override
+    public Employee getEmployee(Integer id) {
+        return getEmployee(id);
+    }
+    @Override
+    public void deleteEmployee(Integer id) {
+        deleteEmployee(id);
+    }
+    @Override
+    public List<Employee> getEmployeesWithSalaryHigherThan(Integer salary) {
+        return getEmployeesWithSalaryHigherThan(salary);
     }
 }
