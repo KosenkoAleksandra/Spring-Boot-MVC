@@ -39,14 +39,13 @@ public class EmployeeController {
         return employeeService.getAllEmployeesWithAboveAverageSalary();
     }
 
-    @PostMapping("/")
+    @PostMapping
     public void addEmployee(@RequestBody Employee employee) {
         employeeService.addEmployee(employee);
     }
 
     @PutMapping("/{id}")
-    public void editEmployee(@RequestBody Employee employee) {
-        employeeService.editEmployee(employee);
+    public void editEmployee(@PathVariable Employee employee) {employeeService.editEmployee(employee);
     }
     @GetMapping("/{id}")
     public Employee getEmployee(@PathVariable Integer id) {

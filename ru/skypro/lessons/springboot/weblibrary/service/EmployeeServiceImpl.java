@@ -74,7 +74,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
     @Override
     public void editEmployee(Employee employee) {
-    }
+        for (Employee empl : employeeRepository.getAllEmployees()) {
+            empl = employeeRepository.getAllEmployees().set(employee.getId(), employee);
+            return;
+            }
+        }
+
     @Override
     public Employee getEmployee(Integer id) {
         for (Employee employee : employeeRepository.getAllEmployees()) {
