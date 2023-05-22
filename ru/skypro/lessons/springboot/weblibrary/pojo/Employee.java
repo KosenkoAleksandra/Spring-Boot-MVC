@@ -10,10 +10,12 @@ import lombok.ToString;
 @Setter
 
 public class Employee {
+    private Integer id;
     private String name;
     private int salary;
 
-    public Employee(String name, int salary) {
+    public Employee(Integer id, String name, int salary) {
+        this.id = id;
         this.name = name;
         this.salary = salary;
     }

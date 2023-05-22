@@ -63,6 +63,50 @@ public class EmployeeServiceImpl implements EmployeeService{
         int averageSalary = sumSalary()/employeeRepository.getAllEmployees().size();
         return averageSalary;
     }
+    @Override
+    public void addEmployee(Employee employee) {
+        Employee newEmployee = new Employee(employee.getId(), employee.getName(), employee.getSalary());
+        for (Employee empl : employeeRepository.getAllEmployees()) {
+            if (empl != null && empl == employee) {
+                newEmployee = empl;
+                }
+            }
+    }
+    @Override
+    public void editEmployee(Employee employee) {
+        for (Employee empl : employeeRepository.getAllEmployees()) {
+            empl = employeeRepository.getAllEmployees().set(employee.getId(), employee);
+            return;
+            }
+        }
 
+    @Override
+    public Employee getEmployee(Integer id) {
+        for (Employee employee : employeeRepository.getAllEmployees()) {
+            if (employee != null && employee.getId() == id) {
+                return employee;
+            }
+        }
+        return employeeRepository.getEmployee(id);
+    }
+    @Override
+    public void deleteEmployee(Integer id) {
+        for (Employee employee : employeeRepository.getAllEmployees()) {
+            if (employee != null && id.equals(employee.getId())) {
+                employee = null;
+                return;
+            }
+        }
+    }
+    @Override
+    public List<Employee> getEmployeesWithSalaryHigherThan(Integer salary) {
+        List<Employee> allEmployeesWithSalaryHigherThan = new ArrayList<>();
+        for (Employee employee : employeeRepository.getAllEmployees()) {
+            if (employee != null && employee.getSalary() > salary) {
+                allEmployeesWithSalaryHigherThan.add(employee);
+            }
+        }
+        return allEmployeesWithSalaryHigherThan;
+    }
 
 }
