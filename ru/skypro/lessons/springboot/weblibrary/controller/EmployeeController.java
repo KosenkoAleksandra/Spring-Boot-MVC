@@ -2,10 +2,13 @@ package ru.skypro.lessons.springboot.weblibrary.controller;
 
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
-import ru.skypro.lessons.springboot.weblibrary.pojo.Employee;
+import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
+import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeFullInfo;
+import ru.skypro.lessons.springboot.weblibrary.entity.Employee;
 import ru.skypro.lessons.springboot.weblibrary.service.EmployeeService;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @RestController
@@ -15,50 +18,32 @@ public class EmployeeController {
 
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<EmployeeDTO> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
-
-    @GetMapping("/salary/sum")
-    public int sumSalary() {
-        return employeeService.sumSalary();
-    }
-
-    @GetMapping("/salary/min")
-    public Employee getEmployeeWithMinSalary() {
-        return employeeService.getEmployeeWithMinSalary();
-    }
-
-    @GetMapping("/salary/max")
-    public Employee getEmployeeWithMaxSalary() {
-        return employeeService.getEmployeeWithMaxSalary();
-    }
-
-    @GetMapping("/high-salary")
-    public List<Employee> getAllEmployeesWithAboveAverageSalary() {
-        return employeeService.getAllEmployeesWithAboveAverageSalary();
-    }
-
     @PostMapping
     public void addEmployee(@RequestBody Employee employee) {
         employeeService.addEmployee(employee);
     }
-
-    @PutMapping("/{id}")
-    public void editEmployee(@PathVariable Employee employee) {employeeService.editEmployee(employee);
-    }
     @GetMapping("/{id}")
-    public Employee getEmployee(@PathVariable Integer id) {
-        return employeeService.getEmployee(id);
+    public EmployeeDTO getEmployeeByID(@PathVariable Integer id) {
+        return employeeService.getEmployeeById(id);
     }
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable Integer id) {
-      employeeService.deleteEmployee(id);
+    public void deleteEmployeeById(@PathVariable Integer id) {
+        employeeService.deleteEmployeeById(id);
     }
-    @GetMapping("/salaryHigherThan")
-    public List<Employee> getEmployeesWithSalaryHigherThan(@RequestParam("salary") Integer salary) {
-      return employeeService.getEmployeesWithSalaryHigherThan(salary);
+    @GetMapping("/{name}")
+    public List<Employee> getEmployeesByName(String name) {
+        return employeeService.getEmployeesByName(name);
     }
+    @GetMapping("/all")
+    public List<EmployeeFullInfo> getAllInfo() {
+        return employeeService.getAllInfo();
+    }
+
+
+
 
 }
 
