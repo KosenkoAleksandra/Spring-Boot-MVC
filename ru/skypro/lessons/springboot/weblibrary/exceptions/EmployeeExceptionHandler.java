@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @RestControllerAdvice
 public class EmployeeExceptionHandler {
@@ -16,5 +17,9 @@ public class EmployeeExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<?> handleException(Exception exception) {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+    @ExceptionHandler
+    public ResponseEntity<?> handleSQLException(SQLException sqlException) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
