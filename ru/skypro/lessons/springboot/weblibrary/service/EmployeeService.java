@@ -10,10 +10,12 @@ import java.util.Map;
 public interface EmployeeService {
     List<EmployeeDTO> getAllEmployees();
     List<EmployeeFullInfo> getAllInfo();
-    void addEmployee(Employee employee);
+    EmployeeDTO addEmployee(Employee employee);
     EmployeeDTO getEmployeeById(int id);
     void deleteEmployeeById(int id);
-    List<Employee> getEmployeesByName(String name);
+    List<EmployeeDTO> getEmployeesByName(String name);
+    EmployeeDTO employeeWithHighestSalary();
+    List<EmployeeDTO> allEmployeesPosition();
 
 
 

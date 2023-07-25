@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeFullInfo;
 import ru.skypro.lessons.springboot.weblibrary.entity.Employee;
+import ru.skypro.lessons.springboot.weblibrary.entity.Position;
 import ru.skypro.lessons.springboot.weblibrary.service.EmployeeService;
 
 import java.util.List;
@@ -17,13 +18,13 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
 
-    @GetMapping
+    @GetMapping("/all")
     public List<EmployeeDTO> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
     @PostMapping
-    public void addEmployee(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
+    public EmployeeDTO addEmployee(@RequestBody Employee employee) {
+        return EmployeeDTO.fromEmployee(employeeService.addEmployee(employee).toEmployee());
     }
     @GetMapping("/{id}")
     public EmployeeDTO getEmployeeByID(@PathVariable Integer id) {
@@ -31,20 +32,24 @@ public class EmployeeController {
     }
     @DeleteMapping("/{id}")
     public void deleteEmployeeById(@PathVariable Integer id) {
-        employeeService.deleteEmployeeById(id);
+       employeeService.deleteEmployeeById(id);
     }
     @GetMapping("/{name}")
-    public List<Employee> getEmployeesByName(String name) {
+    public List<EmployeeDTO> getEmployeesByName(@PathVariable String name) {
         return employeeService.getEmployeesByName(name);
     }
-    @GetMapping("/all")
-    public List<EmployeeFullInfo> getAllInfo() {
+    @GetMapping("/{id}/fullInfo")
+    public List<EmployeeFullInfo> getAllInfo(@PathVariable Integer id) {
         return employeeService.getAllInfo();
     }
-
-
-
-
+    @GetMapping("/withHighestSalary")
+    public EmployeeDTO employeeWithHighestSalary(@PathVariable Integer id) {
+        return employeeService.employeeWithHighestSalary();
+    }
+    @GetMapping
+    public List<EmployeeDTO> allEmployeesPosition (@RequestParam("position") Position position) {
+        return null;
+    }
 }
 
 

@@ -14,12 +14,18 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
     List<Employee> findAllEmployees();
     @Query(value = "SELECT * FROM employee WHERE name= :name",
             nativeQuery = true)
-    List<Employee> getEmployeesByName(@Param("name") String name);
+    List<EmployeeDTO> getEmployeesByName(@Param("name") String name);
     @Query("SELECT new ru.skypro.lessons.springboot.weblibrary.dto." +
             "EmployeeFullInfo(e.name , e.salary , p.name) " +
             "FROM Employee e join fetch Position p " +
             "WHERE e.position = p")
     List<EmployeeFullInfo> findAllEmployeeFullInfo();
+    @Query("SELECT max(salary) from employee")
+    Employee employeeWithHighestSalary();
+    @Query(value = "SELECT * FROM position WHERE name= :name",
+            nativeQuery = true)
+    List<EmployeeDTO> allEmployeesPosition();
+
 
 
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeFullInfo;
 import ru.skypro.lessons.springboot.weblibrary.entity.Employee;
+import ru.skypro.lessons.springboot.weblibrary.entity.Position;
 import ru.skypro.lessons.springboot.weblibrary.repository.EmployeeRepository;
 
 
@@ -29,8 +30,8 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void addEmployee(Employee employee) {
-        employeeRepository.save(employee);
+    public EmployeeDTO addEmployee(Employee employee) {
+       return EmployeeDTO.fromEmployee(employeeRepository.save(employee));
 
     }
     @Override
@@ -45,14 +46,20 @@ public class EmployeeServiceImpl implements EmployeeService{
         employeeRepository.deleteById(id);
     }
     @Override
-    public List<Employee> getEmployeesByName (String name) {
+    public List<EmployeeDTO> getEmployeesByName (String name) {
         return employeeRepository.getEmployeesByName(name);
     }
-
     @Override
     public List<EmployeeFullInfo> getAllInfo() {
         return employeeRepository.findAllEmployeeFullInfo();
     }
 
-
+    @Override
+    public EmployeeDTO employeeWithHighestSalary() {
+        return EmployeeDTO.fromEmployee(employeeRepository.employeeWithHighestSalary());
+    }
+    @Override
+    public List<EmployeeDTO> allEmployeesPosition() {
+        return employeeRepository.allEmployeesPosition();
+    }
 }
